@@ -5,7 +5,7 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Install Netcat (for waiting for database connection)
-RUN apt-get update && apt-get install netcat-traditional
+RUN apt-get update && apt-get install -y netcat-traditional && rm -rf /var/lib/apt/lists/*
 
 # Copy the Maven wrapper and build files
 COPY mvnw ./
@@ -23,9 +23,6 @@ RUN ./mvnw clean package -DskipTests
 
 # Expose the application port
 EXPOSE 8080
-
-# Copy the target folder into the container
-COPY target/ ./target/
 
 # Run the Spring Boot app using a wildcard to match the .jar file
 CMD ["sh", "-c", "until nc -z database 3306; do echo 'Waiting for database...'; sleep 5; done; java -jar ./target/*.jar"]

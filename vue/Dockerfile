@@ -12,8 +12,8 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Use a lightweight Nginx image to serve the built files
-FROM nginx:alpine
+# Use a lightweight and stable Nginx image to serve the built files
+FROM nginx:stable-alpine
 
 # Copy the built Vue.js app from the build stage
 COPY --from=build /app/dist /usr/share/nginx/html
