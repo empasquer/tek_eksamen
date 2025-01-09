@@ -1,5 +1,6 @@
 name: Maven Test and Docker Build
 # Made nov 17 2024
+# Updated on jan 9 2025
 
 on:
   push:
